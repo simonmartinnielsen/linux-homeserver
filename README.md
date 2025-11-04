@@ -13,9 +13,9 @@ Contributions are welcome, as long as they stay within the existing problem spac
 ### [Backup](backup)
 Automated 3-2-1 backups for system files, Docker volumes, and custom directories.  
 Includes scheduling, logging, and remote sync via `rclone`.
-Note: I run encrypted backups with Duplicati, see [Private Service Hosting](docker/private)  
+Note: I run encrypted backups with Duplicati, see [Private Service Hosting](services/private)  
 
-### Private Service Hosting
+### [Private Service Hosting](services/private)
 Host and share services with family or friends in a secure, private environment.
 
 ### Public Service Hosting
