@@ -1,0 +1,34 @@
+services:
+  jellyfin:
+    image: jellyfin/jellyfin:latest
+    container_name: jellyfin
+    ports:
+      - 8096:8096
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Copenhagen
+      - JELLYFIN_PublishedServerUrl=${JELLYFIN_PUBLISHEDSERVERURL}
+    volumes:
+      - /home/s/docker/jellyfin/config:/config
+      - /mnt/HDD/jellyfin/cache:/cache
+      - /mnt/HDD/jellyfin/media:/media
+    hostname: ll-smn
+    restart: unless-stopped
+
+  duplicati:
+    image: lscr.io/linuxserver/duplicati:latest
+    ports:
+      - 8200:8200
+    container_name: duplicati
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Copenhagen
+      - SETTINGS_ENCRYPTION_KEY=${DUPLICATI__SETTINGS_ENCRYPTION_KEY}
+      - DUPLICATI__WEBSERVICE_PASSWORD=${DUPLICATI__WEBSERVICE_PASSWORD}
+    volumes:
+      - /seagate/backup:/backups
+      - /mnt/HDD/:/source
+      - /home/s/docker/duplicati/config:/config
+    restart: unless-stopped

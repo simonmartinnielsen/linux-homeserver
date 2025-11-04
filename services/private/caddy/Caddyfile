@@ -1,0 +1,10 @@
+(cloudflare) {
+    tls {
+        dns cloudflare {$CLOUDFLARE_API_TOKEN}
+    }
+}
+
+my-site-subdomain {
+    import cloudflare
+    reverse_proxy my-server.my-tailnet-address.net:1234
+}
