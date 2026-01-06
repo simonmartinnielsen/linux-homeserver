@@ -12,10 +12,10 @@ fi
 for PAIR in "${BACKUPS[@]}"; do
   SRC=$(echo "$PAIR" | awk '{print $1}')
   DEST=$(echo "$PAIR" | awk '{print $2}')
-  log_info "Syncing $SRC → $REMOTE_NAME:$DEST"
-  rclone sync "$SRC" "$REMOTE_NAME:$DEST" \
+  log_info "Syncing $SRC → $DEST"
+  rclone sync "$SRC" "$DEST" \
     --log-level=INFO \
     --log-file="$LOGFILE" \
     --stats=5s \
-    --transfers=8 --checkers=16 --retries=2
+    --transfers=8 --checkers=16 --retries=2 --checksum
 done

@@ -19,7 +19,7 @@ A set of Bash scripts for automated local and remote backups of filesystem data 
 
 - Bash 4+  
 - `tar`  
-- `rclone` configured with your remote (`REMOTE_NAME`)  
+- `rclone` configured with your remote(s) and config file path referenced in $PATH 
 - Docker + Docker Compose (for container backups)  
 - Sudo privileges for filesystem backups
 
@@ -43,10 +43,8 @@ DOCKER_DIR="/home/user/docker"
 FS_TAR_DIR="/mnt/HDD/backup/fs"
 DOCKER_TAR_DIR="/mnt/HDD/backup/docker"
 
-REMOTE_NAME="googledrive"
-
-FS_REMOTE_DIR="backup/fs"
-DOCKER_REMOTE_DIR="backup/docker"
+FS_REMOTE_DIR="remote:backup/fs"
+DOCKER_REMOTE_DIR="remote:backup/docker"
 ```
 
 3. Ensure the logs/ and backup directories exist:
@@ -64,9 +62,10 @@ Run backups using run_backups.sh with flags:
 ### Options
 - --fs – Run filesystem backup
 - --docker – Run Docker backup
-- --dirs "SRC DEST" – Sync custom directories (can specify multiple pairs)
+- --dirs "SOURCE_DIRECTORY RCLONE_REMOTE:DIRECTORY" – Sync custom directories (can specify multiple pairs)
 - --help – Show usage instructions
 
+## Example usage
 ```bash
 # Backup filesystem only
 ./run_backups.sh --fs
@@ -78,7 +77,7 @@ Run backups using run_backups.sh with flags:
 ./run_backups.sh --fs --docker
 
 # Sync custom directories
-./run_backups.sh --dirs "/mnt/HDD/Docs backups/docs" "/mnt/HDD/Media backups/media"
+./run_backups.sh --dirs "/mnt/HDD/Docs remote:backups/docs" "/mnt/HDD/Media remote-encrypted:backups/media"
 ```
 
 ## Logging
